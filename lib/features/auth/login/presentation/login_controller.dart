@@ -39,6 +39,7 @@ class LoginController with ChangeNotifier {
       print(failure.message);
     }, (success) {
       print("success");
+      print(success.data);
       Navigator.of(context).pushReplacementNamed(Routes.pickup);
     });
   }

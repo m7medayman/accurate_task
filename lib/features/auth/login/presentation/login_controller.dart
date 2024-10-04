@@ -1,3 +1,4 @@
+import 'package:accurate_task/core/common_widget/alert_dialog.dart';
 import 'package:accurate_task/core/routing/routes_manager.dart';
 import 'package:accurate_task/core/success/success.dart';
 import 'package:accurate_task/features/auth/login/presentation/login_model.dart';
@@ -27,11 +28,14 @@ class LoginController with ChangeNotifier {
 
   void Loading(BuildContext context) async {
     isLoading = true;
+    FocusScope.of(context).unfocus();
     notifyListeners();
     await authRepo.login(userModel.email!, userModel.password!).fold((failure) {
       isError = true;
       errorMessage = failure.message;
+      isLoading = false;
       notifyListeners();
+      showAlertDialog(context, failure.message, "Error");
       print(failure.message);
     }, (success) {
       print("success");

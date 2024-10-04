@@ -24,6 +24,7 @@ class InputValidator {
     return validateRegularField(value);
   }
 
+  static String? noneValidate(String? value) {}
   // Static method to validate a regular (generic) input field
   static String? validateRegularField(String? value) {
     if (value == null || value.isEmpty) {

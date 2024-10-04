@@ -54,7 +54,6 @@ class LoginView extends StatelessWidget {
                     child: SizedBox(
                       width: screenWidth * 0.8,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           EmailInputFiled(
                               fieldFormKey: emailKey,
@@ -70,20 +69,22 @@ class LoginView extends StatelessWidget {
                             screenHeight: screenHeight,
                             percent: 0.01,
                           ),
-                          MyElevatedButton(
-                            onPressed: () {
-                              if (emailKey.currentState!.validate() &&
-                                  passwordKey.currentState!.validate()) {
-                                controller.updateUserEmailAndPassword(
-                                    emailTextController.text.trim(),
-                                    passwordTextController.text.trim());
-                                controller.Loading(context);
-                              }
-                            },
-                            screenWidth: screenWidth,
-                            icon: Icons.lock,
-                            content: "Login",
-                          ),
+                          controller.isLoading
+                              ? CircularProgressIndicator()
+                              : MyElevatedButton(
+                                  onPressed: () {
+                                    if (emailKey.currentState!.validate() &&
+                                        passwordKey.currentState!.validate()) {
+                                      controller.updateUserEmailAndPassword(
+                                          emailTextController.text.trim(),
+                                          passwordTextController.text.trim());
+                                      controller.Loading(context);
+                                    }
+                                  },
+                                  screenWidth: screenWidth,
+                                  icon: Icons.lock,
+                                  content: "Login",
+                                ),
                           FormSeparator(screenHeight: screenHeight),
                           const Divider(),
                           FormSeparator(screenHeight: screenHeight),

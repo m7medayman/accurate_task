@@ -2,12 +2,14 @@ import 'package:accurate_task/core/helpers/date_model.dart';
 import 'package:accurate_task/features/create_request/helpers/strigns_constants.dart';
 
 class GraphqlRequestModel {
+  int? id;
   DeliveryType deliverType;
   TypeCode requestType;
   DateTimeModel dateTimeModel;
   String payeeName;
   String notes;
   GraphqlRequestModel({
+    this.id,
     required this.deliverType,
     required this.requestType,
     required this.dateTimeModel,
@@ -17,6 +19,21 @@ class GraphqlRequestModel {
   Map<String, dynamic> toGQLRequest() {
     return {
       "input": {
+        "payeeName": payeeName.trim(),
+        "typeCode": requestType.toRequest().trim(),
+        "customerId": 5,
+        "branchId": 1,
+        "date": dateTimeModel.toString().trim(),
+        "notes": notes,
+        "deliveryTypeCode": deliverType.toRequest().trim()
+      }
+    };
+  }
+
+  Map<String, dynamic> toGQLRequestWithId() {
+    return {
+      "input": {
+        "id": id,
         "payeeName": payeeName.trim(),
         "typeCode": requestType.toRequest().trim(),
         "customerId": 5,
@@ -39,7 +56,7 @@ extension ToStringConverter on TypeCode {
   String toRequest() {
     switch (this) {
       case TypeCode.PMT:
-        return "PMT";
+        return "PMNT";
       case TypeCode.RTRN:
         return "RTRN";
       case TypeCode.MTRL:

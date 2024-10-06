@@ -31,3 +31,28 @@ class DateTimeModel {
     return r;
   }
 }
+
+DateTimeModel fromString(String dateTimeString) {
+  // Split the date and time parts
+  List<String> dateTimeParts = dateTimeString.split(' ');
+
+  // Date part "yyyy-MM-dd"
+  List<String> dateParts = dateTimeParts[0].split('-');
+  int year = int.parse(dateParts[0]);
+  int month = int.parse(dateParts[1]);
+  int day = int.parse(dateParts[2]);
+
+  // Time part "hh:mm:00"
+  List<String> timeParts = dateTimeParts[1].split(':');
+  int hour = int.parse(timeParts[0]);
+  int minute = int.parse(timeParts[1]);
+
+  // Return a DateTimeModel instance
+  return DateTimeModel(
+    year: year,
+    mon: month,
+    day: day,
+    hour: hour,
+    minuet: minute,
+  );
+}

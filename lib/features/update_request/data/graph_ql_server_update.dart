@@ -2,13 +2,12 @@ import 'package:accurate_task/core/Authentication/auth.dart';
 import 'package:accurate_task/core/Authentication/graphConstants.dart';
 import 'package:accurate_task/core/Di/di.dart';
 import 'package:accurate_task/core/failure/failure.dart';
-import 'package:accurate_task/core/shared_pref/shard_prefrences_helper.dart';
 import 'package:accurate_task/core/success/success.dart';
 import 'package:accurate_task/features/create_request/data/graphQl_request_mdel.dart';
 import 'package:either_dart/either.dart';
 import 'package:graphql/client.dart';
 
-class SaveRequestGraphServiceProvider {
+class updateRequestGraphServiceProvider {
   static String url = GraphConstant.apiUrl;
   static Auth auth = getIt<Auth>();
   static final HttpLink _httpLink = HttpLink(
@@ -19,16 +18,16 @@ class SaveRequestGraphServiceProvider {
     },
   );
 
-  static final GraphQLClient saveRequestClient = GraphQLClient(
+  static final GraphQLClient updateRequestClient = GraphQLClient(
     link: _httpLink,
     cache: GraphQLCache(),
   );
-  Future<Either<Failure, Success>> saveRequest(
+  Future<Either<Failure, Success>> updateRequest(
       GraphqlRequestModel model) async {
     try {
-      var response = await saveRequestClient.mutate(MutationOptions(
-          document: GraphConstant.saveRequestMutation,
-          variables: model.toGQLRequest()));
+      var response = await updateRequestClient.mutate(MutationOptions(
+          document: GraphConstant.updateRequestMutation,
+          variables: model.toGQLRequestWithId()));
 
       if (response.exception != null) {
         print(response.exception!.graphqlErrors);
@@ -41,7 +40,6 @@ class SaveRequestGraphServiceProvider {
       }
       print(response.data);
       String id = response.data!["saveCustomerRequest"]["id"].toString();
-      await SharedPreferencesHelper.addToList(id);
       return Right(Success(data: id));
     } catch (e) {
       return Left(Failure(message: e.toString()));

@@ -5,20 +5,33 @@ import 'package:accurate_task/features/create_pickup/presentation/create_pickup_
 import 'package:accurate_task/features/create_request/presentation/create_request_view.dart';
 import 'package:accurate_task/features/lobby/presentation/lobby_view.dart';
 import 'package:accurate_task/features/pickup/presentation/pickup_view.dart';
+import 'package:accurate_task/features/splash/splashScreen.dart';
+import 'package:accurate_task/features/update_request/presentation/update_request_model.dart';
+import 'package:accurate_task/features/update_request/presentation/update_view.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
-  static const String login = '/';
+  static const String login = '/login';
   static const String pickup = '/pickup';
   static const String lobby = '/lobby';
   static const String createPickup = '/createPickup';
   static const String createRequest = '/createRequest';
+  static const String updateRequest = '/updateRequest';
+  static const String splash = '/';
 }
 
 // Route manager to handle navigation
 class RouteManager {
   static Route<String> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.splash:
+        return MaterialPageRoute(builder: (_) => SplashScreen());
+      case Routes.updateRequest:
+        initUpdateModel();
+        return MaterialPageRoute(
+            builder: (_) => UpdateView(
+                  model: settings.arguments as UpdateRequestModel,
+                ));
       case Routes.createRequest:
         initCreateRequestModule();
         return MaterialPageRoute(builder: (_) => CreateRequestView());
@@ -32,6 +45,7 @@ class RouteManager {
       case Routes.createPickup:
         return MaterialPageRoute(builder: (_) => CreatePickupView());
       case Routes.lobby:
+        initLobbyModule();
         return MaterialPageRoute(builder: (_) => LobbyView());
       default:
         return MaterialPageRoute(

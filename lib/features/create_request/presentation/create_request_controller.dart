@@ -27,6 +27,7 @@ class CreateRequestController extends ChangeNotifier {
       Navigator.of(context).pop();
       print("success");
       print(success.data);
+      Navigator.of(context).pop();
     });
   }
 }

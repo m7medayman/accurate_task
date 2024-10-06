@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class BottomSheetField extends StatefulWidget {
   BottomSheetField(
       {super.key,
+      this.showOnly = false,
       required this.choices,
       required this.fieldFormKey,
       required this.fieldInput,
@@ -16,6 +17,7 @@ class BottomSheetField extends StatefulWidget {
   final String label;
   final List<String> choices;
   final double screenHeight;
+  final bool? showOnly;
 
   @override
   State<BottomSheetField> createState() => _BottomSheetFieldState();
@@ -28,9 +30,11 @@ class _BottomSheetFieldState extends State<BottomSheetField> {
   Widget build(BuildContext context) {
     return GeneralInputFiled(
         readOnly: true,
-        onTap: () {
-          show(context);
-        },
+        onTap: widget.showOnly!
+            ? () {}
+            : () {
+                show(context);
+              },
         suffixIcon: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

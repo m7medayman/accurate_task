@@ -46,7 +46,8 @@ class GraphServiceProvider {
       if (data.containsKey("login")) {
         String token = data["login"]["token"];
         print(token);
-        getIt.registerSingleton(() => Auth(token: token));
+        getIt.registerSingleton(Auth(token: token));
+        print(getIt<Auth>());
         return Right(Success(data: Auth(token: token)));
       }
       return Left(Failure(message: "unKnown Error"));

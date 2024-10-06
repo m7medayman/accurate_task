@@ -92,7 +92,7 @@ class CreatePickupView extends StatelessWidget {
                 GeneralInputFiled(
                     fieldFormKey: notesKey,
                     fieldInput: notesInputControl,
-                    minLines: 4,
+                    maxLines: 4,
                     label: "Notes",
                     validateMessageFunction: InputValidator.noneValidate),
                 ElevatedButton(

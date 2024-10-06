@@ -1,3 +1,4 @@
+import 'package:accurate_task/core/theme/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class MyElevatedButton extends StatelessWidget {
@@ -25,7 +26,8 @@ class MyElevatedButton extends StatelessWidget {
             ),
             Text(
               content,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: ColorManager.white, fontWeight: FontWeight.bold),
             )
           ],
         ));

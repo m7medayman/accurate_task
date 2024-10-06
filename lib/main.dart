@@ -1,4 +1,5 @@
 import 'package:accurate_task/core/routing/routes_manager.dart';
+import 'package:accurate_task/core/theme/theme_manager.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -15,15 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: Routes.login,
-      onGenerateRoute: RouteManager.generateRoute,
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        initialRoute: Routes.createRequest,
+        onGenerateRoute: RouteManager.generateRoute,
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: getThemeManager()
+        // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        );
   }
 }

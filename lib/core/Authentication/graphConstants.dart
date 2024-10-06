@@ -8,4 +8,13 @@ mutation($loginInput:LoginInput!) {
     token
   }
 }''');
+  static var saveRequestMutation =
+      gql(r'''mutation($input:CustomerRequestInput!){
+  saveCustomerRequest(input:$input){
+    id
+    date
+    notes
+    paymentAccountNumber
+  }
+}''');
 }

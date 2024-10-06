@@ -2,6 +2,7 @@ import 'package:accurate_task/core/Di/di.dart';
 import 'package:accurate_task/core/common_widget/my_elevated_button.dart';
 import 'package:accurate_task/core/common_widget/my_inputField.dart';
 import 'package:accurate_task/core/common_widget/separator.dart';
+import 'package:accurate_task/core/theme/color_manager.dart';
 import 'package:accurate_task/features/auth/login/presentation/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,14 +23,10 @@ class LoginView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: Center(
-            child: Text(
-              "Accurate",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
+          title: Text(
+            "Accurate",
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                fontWeight: FontWeight.bold, color: ColorManager.primaryColor),
           ),
         ),
         body: Center(
@@ -41,10 +38,9 @@ class LoginView extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "ACCURATE",
-                    style: Theme.of(context)
-                        .textTheme
-                        .displayMedium!
-                        .copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: ColorManager.logoColColor),
                   ),
                 ),
               ),
@@ -82,7 +78,7 @@ class LoginView extends StatelessWidget {
                                     }
                                   },
                                   screenWidth: screenWidth,
-                                  icon: Icons.lock,
+                                  icon: Icons.lock_outline_rounded,
                                   content: "Login",
                                 ),
                           FormSeparator(screenHeight: screenHeight),
@@ -90,7 +86,7 @@ class LoginView extends StatelessWidget {
                           FormSeparator(screenHeight: screenHeight),
                           MyElevatedButton(
                               screenWidth: screenWidth,
-                              icon: Icons.add,
+                              icon: Icons.add_circle_outline,
                               content: "Register New User"),
                           TextButton(
                               onPressed: () {},

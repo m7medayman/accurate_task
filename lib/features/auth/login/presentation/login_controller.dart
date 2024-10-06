@@ -40,7 +40,7 @@ class LoginController with ChangeNotifier {
     }, (success) {
       print("success");
       print(success.data);
-      Navigator.of(context).pushReplacementNamed(Routes.pickup);
+      Navigator.of(context).pushReplacementNamed(Routes.createRequest);
     });
   }
 }

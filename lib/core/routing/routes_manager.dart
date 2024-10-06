@@ -2,6 +2,7 @@
 import 'package:accurate_task/core/Di/di.dart';
 import 'package:accurate_task/features/auth/login/presentation/login_view.dart';
 import 'package:accurate_task/features/create_pickup/presentation/create_pickup_view.dart';
+import 'package:accurate_task/features/create_request/presentation/create_request_view.dart';
 import 'package:accurate_task/features/lobby/presentation/lobby_view.dart';
 import 'package:accurate_task/features/pickup/presentation/pickup_view.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,16 @@ class Routes {
   static const String pickup = '/pickup';
   static const String lobby = '/lobby';
   static const String createPickup = '/createPickup';
+  static const String createRequest = '/createRequest';
 }
 
 // Route manager to handle navigation
 class RouteManager {
   static Route<String> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.createRequest:
+        initCreateRequestModule();
+        return MaterialPageRoute(builder: (_) => CreateRequestView());
       case Routes.pickup:
         return MaterialPageRoute(builder: (_) => const PickupView());
       case Routes.login:

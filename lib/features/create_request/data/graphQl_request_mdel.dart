@@ -21,8 +21,6 @@ class GraphqlRequestModel {
       "input": {
         "payeeName": payeeName.trim(),
         "typeCode": requestType.toRequest().trim(),
-        "customerId": 5,
-        "branchId": 1,
         "date": dateTimeModel.toString().trim(),
         "notes": notes,
         "deliveryTypeCode": deliverType.toRequest().trim()
@@ -36,8 +34,6 @@ class GraphqlRequestModel {
         "id": id,
         "payeeName": payeeName.trim(),
         "typeCode": requestType.toRequest().trim(),
-        "customerId": 5,
-        "branchId": 1,
         "date": dateTimeModel.toString().trim(),
         "notes": notes,
         "deliveryTypeCode": deliverType.toRequest().trim()

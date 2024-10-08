@@ -5,6 +5,6 @@ class DeliveryTypeStrings {
 
 class TypeCodeStrings {
   static const String PMT = "طلب تسوية";
-  static const String RTRN = "طلب فلايرات";
-  static const String MTRL = " طلب المرتجعات";
+  static const String RTRN = " طلب المرتجعات";
+  static const String MTRL = "طلب فلايرات";
 }

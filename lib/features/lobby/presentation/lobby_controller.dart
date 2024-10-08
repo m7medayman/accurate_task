@@ -17,16 +17,19 @@ class LobbyController extends ChangeNotifier {
   RequestsRepo requestsRepo;
   bool isLoading = false;
   bool isError = false;
+  bool payment = true;
+  bool returns = false;
+  bool materials = false;
   BuildContext context;
   String errorMessage = "";
   List<Map<String, dynamic>> requestResponses = [];
   List<LobbyRequest> viewRequests = [];
+  List<LobbyRequest> filteredRequests = [];
   LobbyController({
     required this.requestsRepo,
     required this.context,
   });
-  void updateViewRequests() async {
-    viewRequests = [];
+  Future<void> updateViewRequests() async {
     isLoading = true;
     notifyListeners();
     List<String> ids = await SharedPreferencesHelper.getIdsList();
@@ -51,6 +54,40 @@ class LobbyController extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     });
+  }
+
+  void paymentFilter() async {
+    await updateViewRequests();
+    payment = true;
+    returns = false;
+    materials = false;
+    filteredRequests = viewRequests.where((element) {
+      print(element);
+      return element.typeCode == "PMNT";
+    }).toList();
+    notifyListeners();
+  }
+
+  void returnsFilter() {
+    updateViewRequests();
+    payment = false;
+    returns = true;
+    materials = false;
+    filteredRequests = viewRequests.where((element) {
+      return element.typeCode == "RTRN";
+    }).toList();
+    notifyListeners();
+  }
+
+  void matrialFilter() {
+    updateViewRequests();
+    payment = false;
+    returns = false;
+    materials = true;
+    filteredRequests = viewRequests.where((element) {
+      return element.typeCode == "MTRL";
+    }).toList();
+    notifyListeners();
   }
 
   UpdateRequestModel goToUpdateScree(

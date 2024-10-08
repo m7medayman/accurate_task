@@ -1,4 +1,5 @@
 import 'package:accurate_task/features/shimmer.dart';
+import 'package:accurate_task/features/update_request/presentation/converter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,8 +22,7 @@ class LobbyView extends StatelessWidget {
       create: (_) {
         LobbyController contrller =
             LobbyController(requestsRepo: getIt(), context: context);
-        contrller.updateViewRequests();
-        return contrller;
+        return contrller..paymentFilter();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -38,6 +38,36 @@ class LobbyView extends StatelessWidget {
         body: Container(
           child: Column(
             children: [
+              SmallFormSeparator(screenHeight: screenHeight),
+              Consumer(builder: (context, LobbyController controller, child) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    outLineButton(
+                      label: "Payment",
+                      isSelected: controller.payment,
+                      onPressed: () {
+                        controller.paymentFilter();
+                      },
+                    ),
+                    outLineButton(
+                      label: "Returns",
+                      isSelected: controller.returns,
+                      onPressed: () {
+                        controller.returnsFilter();
+                      },
+                    ),
+                    outLineButton(
+                      label: "Materials",
+                      isSelected: controller.materials,
+                      onPressed: () {
+                        controller.matrialFilter();
+                      },
+                    )
+                  ],
+                );
+              }),
+              SmallFormSeparator(screenHeight: screenHeight),
               Container(
                 height: screenHeight * 0.6,
                 width: screenWidth * 0.8,
@@ -50,7 +80,8 @@ class LobbyView extends StatelessWidget {
                           screenHeight: screenHeight)
                       : SingleChildScrollView(
                           child: Column(
-                            children: controller.viewRequests.map((request) {
+                            children:
+                                controller.filteredRequests.map((request) {
                               return Column(
                                 children: [
                                   Container(
@@ -69,9 +100,8 @@ class LobbyView extends StatelessWidget {
                                             .pushNamed(Routes.updateRequest,
                                                 arguments: model)
                                             .then((re) {
-                                          context
-                                              .read<LobbyController>()
-                                              .updateViewRequests();
+                                          context.read<LobbyController>()
+                                            ..paymentFilter();
                                         });
                                       },
                                       child: Padding(
@@ -111,7 +141,7 @@ class LobbyView extends StatelessWidget {
                                                           ColorManager.white),
                                             ),
                                             Text(
-                                              "Delivery type: ${request.deliveryType}",
+                                              "Delivery type: ${deliveryConveterStringString(request.deliveryType)}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyMedium!
@@ -120,7 +150,7 @@ class LobbyView extends StatelessWidget {
                                                           ColorManager.white),
                                             ),
                                             Text(
-                                              "typeCode: ${request.typeCode}",
+                                              "typeCode: ${typeConverterStringString(request.typeCode)}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyMedium!
@@ -164,9 +194,7 @@ class LobbyView extends StatelessWidget {
                             Navigator.of(context)
                                 .pushNamed(Routes.createRequest)
                                 .then((value) {
-                              context
-                                  .read<LobbyController>()
-                                  .updateViewRequests();
+                              context.read<LobbyController>().paymentFilter();
                             });
                           },
                           child: Text("create Request"));
@@ -177,6 +205,38 @@ class LobbyView extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class outLineButton extends StatelessWidget {
+  outLineButton({
+    required this.label,
+    required this.isSelected,
+    required this.onPressed,
+    super.key,
+  });
+  String label;
+  bool isSelected;
+  void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        side: MaterialStateProperty.all(BorderSide(
+            color: isSelected
+                ? ColorManager.primaryColor
+                : ColorManager.labelTextColor)),
+      ),
+      child: Text(
+        label,
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: isSelected
+                ? ColorManager.primaryColor
+                : ColorManager.labelTextColor),
       ),
     );
   }

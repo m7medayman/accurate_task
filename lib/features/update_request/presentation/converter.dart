@@ -18,7 +18,7 @@ String typeConverterStringString(String input) {
     case "RTRN":
       return TypeCodeStrings.RTRN;
     case "MTRL":
-      return TypeCodeStrings.RTRN;
+      return TypeCodeStrings.MTRL;
     default:
       throw Exception("error while conveting strings");
   }
